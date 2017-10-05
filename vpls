@@ -1,0 +1,12 @@
+#!/bin/bash
+if [[ $# < 1 ]]; then
+  me=`basename "$0"`
+  echo "$me yyyy/mm/dd"
+  echo "lists vol2bird VPB data on Amazon S3"
+  exit
+fi
+radars=`aws s3 ls s3://vol2bird/K | awk '{print $2}'`
+for radar in $radars
+do
+  aws s3 ls s3://vol2bird/$radar$1/ --recursive
+done

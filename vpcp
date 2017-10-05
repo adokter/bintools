@@ -1,0 +1,21 @@
+#!/bin/bash
+if [[ $# < 2 ]]; then
+  me=`basename "$0"`
+  echo "$me <yyyy/mm/dd> <localpath>"
+  echo "copies vol2bird VPB data from Amazon S3"
+  exit
+fi
+
+# make directory if needed
+mkdir -p $2/$1
+
+# copy radar files
+radars=`aws s3 ls s3://vol2bird/K | awk '{print $2}'`
+for radar in $radars
+do
+  aws s3 cp s3://vol2bird/$radar$1/ $2/$1 --recursive
+done
+
+# unzip the files
+gunzip $2/$1/*.gz
+

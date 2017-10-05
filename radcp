@@ -1,0 +1,8 @@
+#!/bin/bash
+if [[ $# < 3 ]]; then
+  me=`basename "$0"`
+  echo "$me <radar> <yyyy/mm/dd> <localpath>"
+  echo "copies a radar day of NEXRAD level 2 radar data"
+  exit
+fi
+aws s3 cp s3://noaa-nexrad-level2/$2/$1/ $3 --recursive

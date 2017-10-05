@@ -1,0 +1,12 @@
+#!/bin/bash
+if [[ $# < 3 ]]; then
+  me=`basename "$0"`
+  echo "$me <radar> <yyyy/mm> <localpath>"
+  echo "copies and processes a radar month of NEXRAD level 2 data, and cleans up afterwards"
+  exit
+fi
+
+radcpm $1 $2 $3 > /dev/null 2> /dev/null
+
+find $3/$1/$2/* -type f | sort | awk '{system("vol2bird "$0)}' > $3/$1${2:0:4}${2:5:2}.txt 2> $3/$1${2:0:4}${2:5:2}.err.txt
+rm -rf $3/$1/$2

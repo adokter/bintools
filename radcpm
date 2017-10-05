@@ -1,0 +1,21 @@
+#!/bin/bash
+if [[ $# < 3 ]]; then
+  me=`basename "$0"`
+  echo "$me <radar> <yyyy/mm> <localpath>"
+  echo "copies a radar month of NEXRAD level 2 data"
+  exit
+fi
+days=`radls $2`
+
+mkdir -p $3/$1/$2
+
+for day in $days
+do
+  mkdir -p $3/$1/$2/$day
+  echo "copying $2/$day for $1 ..."
+  aws s3 cp s3://noaa-nexrad-level2/$2/$day$1/ $3/$1/$2/$day --recursive
+done
+
+
+
+

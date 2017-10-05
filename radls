@@ -1,0 +1,8 @@
+#!/bin/bash
+if [[ $# < 1 ]]; then
+  me=`basename "$0"`
+  echo "$me yyyy/mm/dd/radar/"
+  echo "lists NEXRAD level 2 data on Amazon S3"
+  exit
+fi
+aws s3 ls s3://noaa-nexrad-level2/$1/ | awk '{print $NF}'

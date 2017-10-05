@@ -1,0 +1,13 @@
+#!/bin/bash
+if [[ $# < 1 ]]; then
+  me=`basename "$0"`
+  echo "$me <yyyy/mm/dd> <HH:MM> <localpath>"
+  echo "copies NEXRAD level 2 data on Amazon S3, for all radars"
+  exit
+fi
+radars=`aws s3 ls s3://noaa-nexrad-level2/$1/ | awk '{print $NF}'`
+for radar in $radars
+do
+  toInclude=`echo ${radar:0:4}${1:0:4}${1:5:2}${1:8:2}"_"${2:0:2}${2:3:2}"*"`
+  aws s3 cp s3://noaa-nexrad-level2/$1/$radar $3 --recursive --exclude "*" --include "$toInclude"
+done
