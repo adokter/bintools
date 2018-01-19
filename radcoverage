@@ -1,0 +1,23 @@
+#!/bin/bash
+if [[ $# < 1 ]]; then
+  me=`basename "$0"`
+  echo "$me <year>"
+  echo "lists available NEXRAD radars (NOTE: only checking first day of each month)"
+  exit
+fi
+
+set01=`aws s3 ls s3://noaa-nexrad-level2/$1/01/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set02=`aws s3 ls s3://noaa-nexrad-level2/$1/02/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set03=`aws s3 ls s3://noaa-nexrad-level2/$1/03/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set04=`aws s3 ls s3://noaa-nexrad-level2/$1/04/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set05=`aws s3 ls s3://noaa-nexrad-level2/$1/05/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set06=`aws s3 ls s3://noaa-nexrad-level2/$1/06/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set07=`aws s3 ls s3://noaa-nexrad-level2/$1/07/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set08=`aws s3 ls s3://noaa-nexrad-level2/$1/08/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set09=`aws s3 ls s3://noaa-nexrad-level2/$1/09/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set10=`aws s3 ls s3://noaa-nexrad-level2/$1/00/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set11=`aws s3 ls s3://noaa-nexrad-level2/$1/11/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set12=`aws s3 ls s3://noaa-nexrad-level2/$1/12/01/ | awk '{print substr($0,32,4)}' | grep ^K`
+set13=`aws s3 ls s3://noaa-nexrad-level2/$1/12/31/ | awk '{print substr($0,32,4)}' | grep ^K`
+
+echo $set01 $set02 $set03 $set04 $set05 $set06 $set07 $set08 $set09 $set10 $set11 $set12 $set13 | tr " " "\n" | sort | uniq
