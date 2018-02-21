@@ -16,16 +16,6 @@ stopifnot(file.exists(inputdir) && file.exists(outputdir))
 
 library(bioRad)
 
-load_radar_csv = function(filename){
-  radar=substr(filename,1,4)
-  record=radarInfo[radarInfo$radar==radar,]
-  data=readvp.table(filename,radar,wavelength='S')
-  data$attributes$where$lat=record$lat
-  data$attributes$where$lon=record$lon
-  data$attributes$where$height=record$antenna
-  data
-}
-
 load("~/Dropbox/radar/NEXRAD/occultation/NEXRAD_ground_antenna_height.RData")
 
 fnames=list.files(inputdir,full.names=T,recursive=T,include.dirs=T,pattern="*.txt")
