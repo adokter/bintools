@@ -25,7 +25,7 @@ for(radar in radars){
   assign(substr(fbase,1,4),readvp.table(f,substr(fbase,1,4),'S'))
   # save vpts object
   exportf=paste(args[length(args)],"/",substr(fbase,1,4),".RData",sep="")
-  cat(exportf)
+  cat(exportf,'\n')
   do.call(save,list(substr(fbase,1,4),file=exportf))
   # clean up
   file.remove(f)
