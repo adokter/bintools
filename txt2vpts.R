@@ -29,5 +29,5 @@ for(radar in radars){
   do.call(save,list(substr(fbase,1,4),file=exportf))
   # clean up
   file.remove(f)
-  rm(substr(fbase,1,4))
+  do.call(rm,list(substr(fbase,1,4)))
 }
