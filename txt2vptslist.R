@@ -3,7 +3,7 @@ args = commandArgs(trailingOnly=TRUE)
 
 # test if there is at least one argument: if not, return an error
 if (length(args)==0) {
-  stop("txt2vpts.R <input_dir> [<output_dir>]", call.=FALSE)
+  stop("txt2vptslist.R <input_dir> [<output_dir>]", call.=FALSE)
 } else if (length(args)==1) {
   # default output file
   args[2] = "."

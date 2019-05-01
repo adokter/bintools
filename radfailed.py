@@ -2,7 +2,7 @@
 import boto3
 client = boto3.client('batch')
 response=client.list_jobs(
-   jobQueue='spot40A',
+   jobQueue='spot40C',
    jobStatus='FAILED',
    maxResults=100
 )
@@ -11,7 +11,7 @@ for item in response['jobSummaryList']:
 
 while 'nextToken' in response.keys():
    response=client.list_jobs(
-      jobQueue='spot40A',
+      jobQueue='spot40C',
       jobStatus='FAILED',
       maxResults=100,
       nextToken=response['nextToken']
